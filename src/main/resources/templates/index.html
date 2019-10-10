@@ -3,13 +3,13 @@
 <head>
     <title>Getting Started:Serving Web Content</title>
     <meta http-equiv="content-type" content="text/html;charset=UTF-8">
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>
 </head>
 <body>
 <div id ="vue_det">
     <h1>title :{{title}}</h1>
-    <a :href=url>链接 :{{url}}</a>
-    <h1>{{details()}}</h1>
+    <span>链接 :<a :href=url>{{url}}</a></span>
+    <div style="font-size:30px;color: #761c19">{{details()}}</div>
 </div>
 
 <script type="text/javascript">
@@ -17,15 +17,20 @@
         el:'#vue_det',
         data:{
             title:"菜鸟驿站",
-            url:"www.runoob.com",
+            url:"hello.html",
             alexa:"10000"
+
         },
-        mothods:{
-            details: function(){
-                return this.title+"-学的不仅是技术，更是理想！";
+        methods:{
+            details:function(){
+
+                return this.title+"-不仅是在学习编程,还是在实现理想！";
             }
-        }
+    }
     })
+
+
 </script>
 </body>
+
 </html>
