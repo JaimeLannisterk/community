@@ -5,6 +5,16 @@ public class GitHubUser {
     private Long id;
     private String bio;
 
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    private String login;
+
     public String getName() {
         return name;
     }
@@ -35,6 +45,7 @@ public class GitHubUser {
                 "name='" + name + '\'' +
                 ", id=" + id +
                 ", bio='" + bio + '\'' +
+                ", login='" + login + '\'' +
                 '}';
     }
 }
