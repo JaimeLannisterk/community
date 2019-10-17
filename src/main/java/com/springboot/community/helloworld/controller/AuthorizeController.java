@@ -55,16 +55,16 @@ public class AuthorizeController {
             user.setToken(token);
             user.setName(gitHubUser.getName());
             user.setAccountId(String.valueOf(gitHubUser.getId()));
-            user.setGmtModitied(System.currentTimeMillis());
-            user.setGmtModitied(user.getGmtCreate());
+            user.setGmtCreate(System.currentTimeMillis());
+            user.setGmtModified(user.getGmtCreate());
             user.setLogin(String.valueOf(gitHubUser.getLogin()));
             userMapper.insert(user);
             response.addCookie(new Cookie( "token",token));
-            request.getSession().setAttribute("user",gitHubUser);
-            return "redirect:index";
+           // request.getSession().setAttribute("user",gitHubUser);
+            return "redirect:/";
         }else{
-            System.out.println("登录失败");
+            return "redirect:/";
         }
-        return "redirect:index";
+
     }
 }
