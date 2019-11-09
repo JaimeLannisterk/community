@@ -1,5 +1,6 @@
 package com.springboot.community.helloworld.controller;
 
+import com.springboot.community.helloworld.dto.PaginationDTO;
 import com.springboot.community.helloworld.dto.QuestionDTO;
 import com.springboot.community.helloworld.mapper.QuestionMapper;
 import com.springboot.community.helloworld.mapper.UserMapper;
@@ -26,13 +27,16 @@ public class IndexController {
 
     @GetMapping("/")
     public String index(HttpServletRequest request,
-                        Model model){
+                        Model model,
+                        @RequestParam(name = "page",defaultValue = "1") Integer page,
+                        @RequestParam(name = "size",defaultValue = "5") Integer size){
+        User user =null;
       Cookie[] cookies = request.getCookies();
       if(cookies!=null&&cookies.length!=0) {
              for(Cookie cookie:cookies){
               if(cookie.getName().equals("token")){
                   String token = cookie.getValue();
-                  User user =userMapper.findByToken(token);
+                  user =userMapper.findByToken(token);
                   if(user !=null){
                       request.getSession().setAttribute("user",user);
                       break;
@@ -40,13 +44,11 @@ public class IndexController {
               }
             }
          }
-        List<QuestionDTO> list = questionService.list();
-        for (QuestionDTO q:list
-             ) {
-            q.setDescription("reset");
-
-        }
-        model.addAttribute("questions",list);
+/*      if(user==null){
+          return "redirect:/";
+      }*/
+        PaginationDTO paginationDTO = questionService.list(page,size);
+        model.addAttribute("pagination",paginationDTO);
         //model.addAttribute("name","zhangsan");
         return  "index";
     }
